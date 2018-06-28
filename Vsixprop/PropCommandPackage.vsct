@@ -42,8 +42,8 @@
       <Menu guid="guidPropCommandPackageCmdSet" id="SubMenu" priority="0x0100" type="Menu">
         <Parent guid="guidPropCommandPackageCmdSet" id="MyMenuGroup"/>
         <Strings>
-          <ButtonText>StrProp</ButtonText>
-          <CommandName>StrProp</CommandName>
+          <ButtonText>PropEntity</ButtonText>
+          <CommandName>PropEntity</CommandName>
         </Strings>
       </Menu>
       <Menu guid="guidPropCommandPackageCmdSet" id="SubMenu2" priority="0x0101" type="Menu">
