@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vsixprop", "Vsixprop\Vsixprop.csproj", "{240B017E-C72F-4CDA-A1DC-1F65DB7FA7BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{240B017E-C72F-4CDA-A1DC-1F65DB7FA7BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240B017E-C72F-4CDA-A1DC-1F65DB7FA7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240B017E-C72F-4CDA-A1DC-1F65DB7FA7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240B017E-C72F-4CDA-A1DC-1F65DB7FA7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {90E39E13-ADD6-486B-8CEF-2A4119A1452E}
+	EndGlobalSection
+EndGlobal
