@@ -94,6 +94,8 @@ find propconig，click
 
 select MySql and edit connect string
 
+现在，你可以在vs2017 扩展更新里面找到它了，搜索VsixProp
+
 
 
 
