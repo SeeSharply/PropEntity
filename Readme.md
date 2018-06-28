@@ -5,15 +5,22 @@
 
 当我们编写实体Entity的时候，往往没有很好的办法直接生成，就比较麻烦，这也是编写这个插件的初衷
 
+easily Entity 
+
 **### 使用方式1**
+
+type string，use  ‘,’ comma  split
+
+string prop 》》shortcut  alt+p
 
 安装插件之后，选中你需要生成的字符串，快捷键Alt+P可以按照字符串直接生成实体
 
-比如以下字符串
+比如以下字符串,like this
 
 ```  
 Vchcode,dlyorder,Createtime,Qty
 ```
+alt+p
 
 命令会按照 逗号，回车，Tab制表符来分割每个属性，然后生成属性，生成效果如下
 
@@ -37,6 +44,11 @@ Vchcode,dlyorder,Createtime,Qty
 ```
 
 **### 使用方式2**
+
+type table name
+
+databse prop 》》alt+s
+
 
 程序可提供配置sql数据库，只要输入表名字，按Alt+S,可直接生成表的实体，效果如下
 
@@ -65,6 +77,25 @@ Atype
 ```
 currently support mysql
 
-目前仅支持mysql的数据库连接，请确保正确的数据库连接
+目前仅支持mysql的数据库连接，请确保正确的数据库连接;
+
+数据库配置方式：
+
+点击工具-》选项
+
+找到PropConfig，数据库类型选择MySql，编写好连接字符串
+
+
+database config method：
+
+click tools-》options
+
+find propconig，click
+
+select MySql and edit connect string
+
+
+
+
 
 
