@@ -12,7 +12,7 @@ namespace Vsixprop.Orm
 {
 	public class SqliteDbOperator : DbOperatorBase
 	{
-		public SqliteDbOperator(string connStr) : base(connStr)
+		public SqliteDbOperator(OptionPageCustom c) : base(c)
 		{
 
 		}
@@ -21,7 +21,7 @@ namespace Vsixprop.Orm
 			try
 			{
 				
-				dbConnection = new SQLiteConnection(ConnectString);
+				dbConnection = new SQLiteConnection(config.connectString);
 				dbConnection.Open();
 			}
 			catch (Exception e)
@@ -56,7 +56,7 @@ namespace Vsixprop.Orm
 						{
 							typeString = typeList[colType.ToLower()];
 						}
-						var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString);
+						var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString,config.AddSummary);
 						sb.Append(singleStr);
 					}
 				}

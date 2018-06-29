@@ -10,7 +10,7 @@ namespace Vsixprop.Orm
 {
 	public class MysqlDbOperator:DbOperatorBase
 	{
-		public MysqlDbOperator(string connStr) : base(connStr)
+		public MysqlDbOperator(OptionPageCustom c) : base(c)
 		{
 
 		}
@@ -19,7 +19,7 @@ namespace Vsixprop.Orm
 			try
 			{
 				
-				dbConnection = new MySql.Data.MySqlClient.MySqlConnection(ConnectString);
+				dbConnection = new MySql.Data.MySqlClient.MySqlConnection(config.connectString);
 				dbConnection.Open();
 			}
 			catch (Exception e)
@@ -36,7 +36,7 @@ namespace Vsixprop.Orm
 		{
 			try
 			{
-				string s = ConnectString.ToLower(); ;
+				string s = config.connectString.ToLower(); ;
 				string dataBase = Regex.Match(s, @"database=([^;]+)").Groups[1].Value;
 
 				ExecuteQuery(string.Format("select column_name,column_comment,data_type from information_schema.columns where table_schema ='{1}'  and table_name = '{0}'; ", tableName, dataBase));
@@ -52,7 +52,7 @@ namespace Vsixprop.Orm
 					{
 						typeString = a.GetList()[dataType.ToLower()];
 					}
-					var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString, comment);
+					var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString,config.AddSummary, comment);
 					sb.Append(singleStr);
 				}
 				return sb.ToString();

@@ -15,10 +15,10 @@ namespace Vsixprop.Orm
 		protected DbCommand dbCommand;
 
 		public DbDataReader reader;
-		public string ConnectString { get; set; }
-		public DbOperatorBase(string connStr)
+		public OptionPageCustom config { get; set; }
+		public DbOperatorBase(OptionPageCustom c)
 		{
-			ConnectString = connStr;
+			config = c;
 		}
 
 		//打开数据库连接  

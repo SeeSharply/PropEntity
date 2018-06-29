@@ -20,10 +20,10 @@ namespace Vsixprop.TextOperator
 				switch (config.DBType)
 				{
 					case 0:
-						db = new MysqlDbOperator(config.connectString);
+						db = new MysqlDbOperator(config);
 						break;
 					case 1:
-						db = new SqliteDbOperator(config.connectString);
+						db = new SqliteDbOperator(config);
 						break;
 				}
 
