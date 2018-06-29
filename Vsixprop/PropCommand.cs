@@ -65,9 +65,7 @@ namespace Vsixprop
 			var abc = GetSelection(ServiceProvider);
 			var myToolsOptionsPackage = this.package as PropCommandPackage;
 			var operate = new OrmOperator();
-			operate.ParamObj = myToolsOptionsPackage.config;
-			operate.ConnectStr = myToolsOptionsPackage.config.OptionString;
-			operate.DbType = myToolsOptionsPackage.config.DBType;
+			operate.config = myToolsOptionsPackage.config;
 			var propString = operate.DoPropString(abc.Text);
 			if (string.IsNullOrEmpty(propString))
 			{
@@ -125,7 +123,10 @@ namespace Vsixprop
 			{
 				return;
 			}
-			var propString = new StringPropOperator().DoPropString(lineSection.Text);
+			var myToolsOptionsPackage = this.package as PropCommandPackage;
+			var op= new StringPropOperator();
+			op.config = myToolsOptionsPackage.config;
+			var propString = op.DoPropString(lineSection.Text);
 			SetCurrentTextView();
 			SetSelection(propString, lineSection);
         }

@@ -19,9 +19,17 @@ namespace Vsixprop
 	[Guid("00000000-0000-0000-0000-000000000000")]
 	public class OptionPageCustom : DialogPage
 	{
+		private bool addSummary = true;
+
+		public bool AddSummary
+		{
+			get { return addSummary; }
+			set { addSummary = value; }
+		}
+
 		private string optionValue = "";
 
-		public string OptionString
+		public string connectString
 		{
 			get { return optionValue; }
 			set { optionValue = value; }
@@ -114,7 +122,7 @@ namespace Vsixprop
 			get
 			{
 				var page = (OptionPageCustom)GetDialogPage(typeof(OptionPageCustom));
-				return page.OptionString;
+				return page.connectString;
 			}
 		}
 		/// <summary>

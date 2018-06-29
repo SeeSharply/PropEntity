@@ -20,7 +20,7 @@ namespace Vsixprop.TextOperator
 			foreach (var singleStr in strArr)
 			{
 				var dataType = GetStringDataType(singleStr);
-				sb.Append(Utils.DoSingleStrOperate(singleStr,dataType));
+				sb.Append(DoSingleStrOperate(singleStr,dataType));
 			}
 			return sb.ToString();
 

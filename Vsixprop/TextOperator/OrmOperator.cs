@@ -4,13 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vsixprop;
+using Vsixprop.Orm;
 
 namespace Vsixprop.TextOperator
 {
 	public class OrmOperator : OperatorBase
 	{
-		public string ConnectStr{ get; set; }
-		public int DbType { get; set; }
+		private DbOperatorBase db { get; set; }
+
+		//打开数据库连接  
+		public void SetDBType()
+		{
+			try
+			{
+				switch (config.DBType)
+				{
+					case 0:
+						db = new MysqlDbOperator(config.connectString);
+						break;
+					case 1:
+						db = new SqliteDbOperator(config.connectString);
+						break;
+				}
+
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
+		}
 		/// <summary>
 		/// 数据库读取处理
 		/// </summary>
@@ -18,11 +40,11 @@ namespace Vsixprop.TextOperator
 		/// <returns></returns>
 		public override string DoPropString(string inputStr)
 		{
-			var sb = new StringBuilder();
-			var db = new DBConnect(ConnectStr,DbType);
-			var str=db.GetTableColumnStr2(inputStr);
+			SetDBType();
+			var str=db.GetTableColumnStr(inputStr);
 			return str.ToString();
 
 		}
+
 	}
 }
