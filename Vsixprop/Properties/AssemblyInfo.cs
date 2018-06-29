@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PropEntity")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Easily build Entity from strings or database tables!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("weway software")]
 [assembly: AssemblyProduct("PropEntity")]
@@ -30,4 +30,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.2.3.1")]
-[assembly: AssemblyFileVersion("1.1.3.1")]
+[assembly: AssemblyFileVersion("1.2.3.1")]

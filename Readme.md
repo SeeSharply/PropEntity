@@ -77,7 +77,6 @@ Atype
 ```
 currently support mysql
 
-目前仅支持mysql的数据库连接，请确保正确的数据库连接;
 
 数据库配置方式：
 
@@ -95,6 +94,30 @@ find propconig，click
 select MySql and edit connect string
 
 现在，你可以在vs2017 扩展更新里面找到它了，搜索VsixProp
+
+-----
+
+## **versions**
+
+----
+1.1.2.1
+
+1.support mysql and string to create entity;
+
+    I recommand to select the string you typed before   using PropEntity Command!
+
+----
+1.2.3.1
+
+1.support sqlite3;
+
+    I recommand to use  absolute file path to build the connection string;
+
+2.Add Summary Config
+
+    You have an opportunity to choose if there is a need to add summary to your entity property through config!
+
+
 
 
 
