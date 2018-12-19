@@ -38,14 +38,17 @@ namespace Vsixprop
         /// VS Package that provides this command, not null.
         /// </summary>
         private readonly Package package;
+		IVsOutputWindowPane pane;
+		private Guid paneGuid = Microsoft.VisualStudio.VSConstants.OutputWindowPaneGuid.GeneralPane_guid;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropCommand"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        private PropCommand(Package package, OleMenuCommandService commandService)
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PropCommand"/> class.
+		/// Adds our command handlers for menu (commands must exist in the command table file)
+		/// </summary>
+		/// <param name="package">Owner package, not null.</param>
+		/// <param name="commandService">Command service to add command to, not null.</param>
+		private PropCommand(Package package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -61,18 +64,30 @@ namespace Vsixprop
 		}
 		private void SubItemCallback(object sender, EventArgs e)
 		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-			var abc = GetSelection(ServiceProvider);
-			var myToolsOptionsPackage = this.package as PropCommandPackage;
-			var operate = new OrmOperator();
-			operate.config = myToolsOptionsPackage.config;
-			var propString = operate.DoPropString(abc.Text);
-			if (string.IsNullOrEmpty(propString))
+			try
 			{
-				return;
+				ThreadHelper.ThrowIfNotOnUIThread();
+				var lineSection = GetSelection(ServiceProvider);
+				if (string.IsNullOrEmpty(lineSection.Text))
+				{
+					return;
+				}
+				var myToolsOptionsPackage = this.package as PropCommandPackage;
+				var operate = new OrmOperator();
+				operate.config = myToolsOptionsPackage.config;
+				var propString = operate.DoPropString(lineSection.Text);
+				if (string.IsNullOrEmpty(propString))
+				{
+					return;
+				}
+				SetCurrentTextView();
+				SetSelection(propString, lineSection);
 			}
-			SetCurrentTextView();
-			SetSelection(propString, abc);
+			catch (Exception ex)
+			{
+				WriteOutputInfo(ex.Message);
+			}
+			
 		}
 
 		/// <summary>
@@ -117,18 +132,26 @@ namespace Vsixprop
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var lineSection = GetSelection(ServiceProvider);
-			if (string.IsNullOrEmpty(lineSection.Text))
+			try
 			{
-				return;
+				ThreadHelper.ThrowIfNotOnUIThread();
+				var lineSection = GetSelection(ServiceProvider);
+				if (string.IsNullOrEmpty(lineSection.Text))
+				{
+					return;
+				}
+				var myToolsOptionsPackage = this.package as PropCommandPackage;
+				var op = new StringPropOperator();
+				op.config = myToolsOptionsPackage.config;
+				var propString = op.DoPropString(lineSection.Text);
+				SetCurrentTextView();
+				SetSelection(propString, lineSection);
 			}
-			var myToolsOptionsPackage = this.package as PropCommandPackage;
-			var op= new StringPropOperator();
-			op.config = myToolsOptionsPackage.config;
-			var propString = op.DoPropString(lineSection.Text);
-			SetCurrentTextView();
-			SetSelection(propString, lineSection);
+			catch (Exception ex)
+			{
+				WriteOutputInfo(ex.Message);
+			}
+            
         }
 
 
@@ -151,6 +174,18 @@ namespace Vsixprop
 			edit.Delete(startPoint, endPoint - startPoint);
 			edit.Insert(startPoint, str);
 			edit.Apply();
+		}
+		private void WriteOutputInfo(string msg)
+		{
+			//create an output window to show the information
+			var outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+			if (pane==null)
+			{
+				outputWindow.CreatePane(paneGuid, "VsixProp", 1, 0);
+				outputWindow.GetPane(paneGuid, out pane);
+
+			}
+			pane.OutputString(DateTime.Now.ToString()+"   VsixProp:"+msg+"\r\n");
 		}
 		/// <summary>
 		/// get string you selected or string of the current line
@@ -185,7 +220,10 @@ namespace Vsixprop
 			
 			TextViewSelection selection = new TextViewSelection(start, end, selectedText);
 			selection.IsSelection = isSelection;
-
+			if (string.IsNullOrEmpty(selectedText))
+			{
+				WriteOutputInfo("input string is empty");
+			}
 			return selection;
         }
     }

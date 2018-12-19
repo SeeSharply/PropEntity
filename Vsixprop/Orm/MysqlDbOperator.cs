@@ -45,14 +45,33 @@ namespace Vsixprop.Orm
 				{
 					var colName = reader.GetString(0);
 					var comment = reader.GetString(1);
-					var dataType = reader.GetString(2);
+					var datatype = reader.GetString(2);
 					var a = TypeConvert.Instance;
 					var typeString = "string";
-					if (a.GetList().ContainsKey(dataType.ToLower()))
+					if (a.GetList().ContainsKey(datatype.ToLower()))
 					{
-						typeString = a.GetList()[dataType.ToLower()];
+						typeString = a.GetList()[datatype.ToLower()];
 					}
-					var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString,config.AddSummary, comment);
+                    if (colName.Contains("date") || colName.Contains("time"))
+                    {
+                        datatype = "DateTime";
+                    }
+                    //caclute type
+                    if (colName.Contains("qty") || colName.Contains("number") || colName.Contains("total") || colName.Contains("price"))
+                    {
+                        datatype = "decimal";
+                    }
+                    //primerykey type
+                    if (colName.Contains("id") || colName.Contains("vhcode") || colName.Contains("dlyorder"))
+                    {
+                        datatype = "ulong";
+                    }
+                    //bool type
+                    if (colName.Contains("is"))
+                    {
+                        datatype = "bool";
+                    }
+                    var singleStr = Utils.DoSingleStrOperate(Utils.FirstToUpper(colName), typeString,config.AddSummary, comment);
 					sb.Append(singleStr);
 				}
 				return sb.ToString();

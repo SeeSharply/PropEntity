@@ -7,7 +7,7 @@
 
 easily Entity 
 
-**### 使用方式1**
+**使用方式1**
 
 type string，use  ‘,’ comma  split
 

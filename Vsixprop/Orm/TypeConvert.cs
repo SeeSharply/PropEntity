@@ -15,7 +15,7 @@ namespace Vsixprop
 		public static readonly TypeConvert Instance = new TypeConvert();
 		public TypeConvert()
 		{
-			list.Add("bingint", "Ulong");
+			list.Add("bigint", "ulong");
 			list.Add("binary", "Object");
 			list.Add("bit", "bool");
 			list.Add("char", "DateTime");
@@ -30,7 +30,7 @@ namespace Vsixprop
 			list.Add("smallint", "short");
 			list.Add("smallmoney", "short");
 			list.Add("timestamp", "byte[]");
-			list.Add("tinyint", "int");
+			list.Add("tinyint", "bool");
 			list.Add("varbinary", "byte[]");
 			list.Add("sql_variant", "object");
 		}
